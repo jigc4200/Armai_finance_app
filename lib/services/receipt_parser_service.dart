@@ -17,12 +17,12 @@ class ParsedReceipt {
   });
 
   factory ParsedReceipt.fromJson(Map<String, dynamic> json) => ParsedReceipt(
-        monto: (json['monto'] as num?)?.toDouble(),
-        fecha: json['fecha'] as String?,
-        comercio: json['comercio'] as String?,
-        categoria: json['categoria'] as String?,
-        tipo: json['tipo'] as String? ?? 'gasto',
-      );
+    monto: (json['monto'] as num?)?.toDouble(),
+    fecha: json['fecha'] as String?,
+    comercio: json['comercio'] as String?,
+    categoria: json['categoria'] as String?,
+    tipo: json['tipo'] as String? ?? 'gasto',
+  );
 }
 
 class ReceiptParserService {
@@ -38,9 +38,7 @@ class ReceiptParserService {
       );
 
       if (response.data != null) {
-        return ParsedReceipt.fromJson(
-          response.data as Map<String, dynamic>,
-        );
+        return ParsedReceipt.fromJson(response.data as Map<String, dynamic>);
       }
     } catch (_) {}
 

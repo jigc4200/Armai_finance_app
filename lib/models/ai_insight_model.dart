@@ -31,7 +31,7 @@ class AiInsight {
       accionTexto: map['accion_texto'] as String? ?? 'Revisar progreso',
       icono: map['icono'] as String? ?? 'psychology',
       activa: map['activa'] as bool? ?? true,
-      createdAt: map['created_at'] != null 
+      createdAt: map['created_at'] != null
           ? DateTime.parse(map['created_at'] as String)
           : null,
     );

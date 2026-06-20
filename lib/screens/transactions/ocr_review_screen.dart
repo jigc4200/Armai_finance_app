@@ -34,9 +34,17 @@ class _OcrReviewScreenState extends ConsumerState<OcrReviewScreen> {
   final bool _isSaving = false;
 
   static const _categorias = [
-    'General', 'Comida', 'Transporte', 'Vivienda',
-    'Salud', 'Educación', 'Entretenimiento', 'Ropa',
-    'Tecnología', 'Hogar', 'Servicios',
+    'General',
+    'Comida',
+    'Transporte',
+    'Vivienda',
+    'Salud',
+    'Educación',
+    'Entretenimiento',
+    'Ropa',
+    'Tecnología',
+    'Hogar',
+    'Servicios',
   ];
 
   @override
@@ -46,12 +54,8 @@ class _OcrReviewScreenState extends ConsumerState<OcrReviewScreen> {
     _montoCtrl = TextEditingController(
       text: result.monto?.toStringAsFixed(2) ?? '',
     );
-    _descCtrl = TextEditingController(
-      text: result.comercio ?? '',
-    );
-    _comercioCtrl = TextEditingController(
-      text: result.comercio ?? '',
-    );
+    _descCtrl = TextEditingController(text: result.comercio ?? '');
+    _comercioCtrl = TextEditingController(text: result.comercio ?? '');
   }
 
   @override
@@ -59,10 +63,10 @@ class _OcrReviewScreenState extends ConsumerState<OcrReviewScreen> {
     _montoCtrl.dispose();
     _descCtrl.dispose();
     _comercioCtrl.dispose();
-    
+
     // Auto-destrucción de la imagen temporal del OCR al cerrar o guardar la pantalla
     _deleteTempImage();
-    
+
     super.dispose();
   }
 
@@ -103,7 +107,9 @@ class _OcrReviewScreenState extends ConsumerState<OcrReviewScreen> {
     ref.read(recentTransactionsProvider.notifier).addOptimistic(optimisticTx);
     ref.read(transactionsProvider.notifier).addOptimistic(optimisticTx);
     if (_metaId != null) {
-      ref.read(goalsProvider.notifier).updateGoalOptimistically(_metaId!, amount, _tipo == 'ingreso');
+      ref
+          .read(goalsProvider.notifier)
+          .updateGoalOptimistically(_metaId!, amount, _tipo == 'ingreso');
     }
 
     // Regresar a la pantalla de inicio de inmediato
@@ -111,17 +117,19 @@ class _OcrReviewScreenState extends ConsumerState<OcrReviewScreen> {
 
     try {
       final repo = ref.read(transactionRepositoryProvider);
-      await repo.create(Transaction(
-        userId: user.id,
-        monto: amount,
-        tipo: _tipo,
-        categoria: _categoria,
-        carteraId: _carteraId,
-        metaId: _metaId,
-        descripcion: description,
-        fecha: widget.ocrResult.fecha ?? DateTime.now(),
-        fuente: 'ocr',
-      ));
+      await repo.create(
+        Transaction(
+          userId: user.id,
+          monto: amount,
+          tipo: _tipo,
+          categoria: _categoria,
+          carteraId: _carteraId,
+          metaId: _metaId,
+          descripcion: description,
+          fecha: widget.ocrResult.fecha ?? DateTime.now(),
+          fuente: 'ocr',
+        ),
+      );
 
       ref.invalidate(recentTransactionsProvider);
       ref.invalidate(transactionsProvider);
@@ -136,7 +144,11 @@ class _OcrReviewScreenState extends ConsumerState<OcrReviewScreen> {
       ref.invalidate(userProfileProvider);
 
       messenger.showSnackBar(
-        SnackBar(content: Text('Error al guardar en la base de datos. Transacción revertida. $e')),
+        SnackBar(
+          content: Text(
+            'Error al guardar en la base de datos. Transacción revertida. $e',
+          ),
+        ),
       );
     }
   }
@@ -208,9 +220,7 @@ class _OcrReviewScreenState extends ConsumerState<OcrReviewScreen> {
             const SizedBox(height: 12),
             TextField(
               controller: _descCtrl,
-              decoration: const InputDecoration(
-                labelText: 'Descripción',
-              ),
+              decoration: const InputDecoration(labelText: 'Descripción'),
             ),
             const SizedBox(height: 12),
             DropdownButtonFormField<String>(
@@ -222,7 +232,9 @@ class _OcrReviewScreenState extends ConsumerState<OcrReviewScreen> {
               onChanged: (v) => setState(() => _categoria = v!),
             ),
             const SizedBox(height: 16),
-            ref.watch(portfoliosProvider).when(
+            ref
+                .watch(portfoliosProvider)
+                .when(
                   data: (portfolios) {
                     if (portfolios.isEmpty) return const SizedBox.shrink();
                     return Column(
@@ -237,10 +249,12 @@ class _OcrReviewScreenState extends ConsumerState<OcrReviewScreen> {
                               value: null,
                               child: Text('Sin cartera'),
                             ),
-                            ...portfolios.map((p) => DropdownMenuItem(
-                                  value: p.id,
-                                  child: Text(p.nombre),
-                                )),
+                            ...portfolios.map(
+                              (p) => DropdownMenuItem(
+                                value: p.id,
+                                child: Text(p.nombre),
+                              ),
+                            ),
                           ],
                           onChanged: (v) => setState(() => _carteraId = v),
                         ),
@@ -251,7 +265,9 @@ class _OcrReviewScreenState extends ConsumerState<OcrReviewScreen> {
                   loading: () => const SizedBox.shrink(),
                   error: (_, _) => const SizedBox.shrink(),
                 ),
-            ref.watch(goalsProvider).when(
+            ref
+                .watch(goalsProvider)
+                .when(
                   data: (goals) {
                     if (goals.isEmpty) return const SizedBox.shrink();
                     return Column(
@@ -266,10 +282,12 @@ class _OcrReviewScreenState extends ConsumerState<OcrReviewScreen> {
                               value: null,
                               child: Text('Sin meta'),
                             ),
-                            ...goals.map((g) => DropdownMenuItem(
-                                  value: g.id,
-                                  child: Text(g.nombre),
-                                )),
+                            ...goals.map(
+                              (g) => DropdownMenuItem(
+                                value: g.id,
+                                child: Text(g.nombre),
+                              ),
+                            ),
                           ],
                           onChanged: (v) => setState(() => _metaId = v),
                         ),

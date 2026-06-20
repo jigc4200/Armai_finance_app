@@ -14,21 +14,21 @@ class UserProfile {
   });
 
   factory UserProfile.fromMap(Map<String, dynamic> map) => UserProfile(
-        id: map['id'] as String,
-        email: map['email'] as String,
-        nivel: map['nivel'] as int? ?? 1,
-        xp: map['xp'] as int? ?? 0,
-        createdAt: map['created_at'] != null
-            ? DateTime.parse(map['created_at'] as String)
-            : null,
-      );
+    id: map['id'] as String,
+    email: map['email'] as String,
+    nivel: map['nivel'] as int? ?? 1,
+    xp: map['xp'] as int? ?? 0,
+    createdAt: map['created_at'] != null
+        ? DateTime.parse(map['created_at'] as String)
+        : null,
+  );
 
   Map<String, dynamic> toMap() => {
-        'id': id,
-        'email': email,
-        'nivel': nivel,
-        'xp': xp,
-      };
+    'id': id,
+    'email': email,
+    'nivel': nivel,
+    'xp': xp,
+  };
 
   String get rango {
     if (nivel >= 20) return 'Magnate';

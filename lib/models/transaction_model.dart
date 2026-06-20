@@ -28,35 +28,35 @@ class Transaction {
   });
 
   Map<String, dynamic> toMap() => {
-        if (id != null) 'id': id,
-        'user_id': userId,
-        'monto': monto,
-        'tipo': tipo,
-        'categoria': categoria,
-        'cartera_id': carteraId,
-        'descripcion': descripcion,
-        'fecha': fecha.toIso8601String(),
-        'fuente': fuente,
-        'imagen_url': imagenUrl,
-        'meta_id': metaId,
-      };
+    if (id != null) 'id': id,
+    'user_id': userId,
+    'monto': monto,
+    'tipo': tipo,
+    'categoria': categoria,
+    'cartera_id': carteraId,
+    'descripcion': descripcion,
+    'fecha': fecha.toIso8601String(),
+    'fuente': fuente,
+    'imagen_url': imagenUrl,
+    'meta_id': metaId,
+  };
 
   factory Transaction.fromMap(Map<String, dynamic> map) => Transaction(
-        id: map['id'] as String?,
-        userId: map['user_id'] as String,
-        monto: (map['monto'] as num).toDouble(),
-        tipo: map['tipo'] as String,
-        categoria: map['categoria'] as String,
-        carteraId: map['cartera_id'] as String?,
-        descripcion: map['descripcion'] as String,
-        fecha: DateTime.parse(map['fecha'] as String),
-        fuente: map['fuente'] as String? ?? 'manual',
-        imagenUrl: map['imagen_url'] as String?,
-        metaId: map['meta_id'] as String?,
-        createdAt: map['created_at'] != null
-            ? DateTime.parse(map['created_at'] as String)
-            : null,
-      );
+    id: map['id'] as String?,
+    userId: map['user_id'] as String,
+    monto: (map['monto'] as num).toDouble(),
+    tipo: map['tipo'] as String,
+    categoria: map['categoria'] as String,
+    carteraId: map['cartera_id'] as String?,
+    descripcion: map['descripcion'] as String,
+    fecha: DateTime.parse(map['fecha'] as String),
+    fuente: map['fuente'] as String? ?? 'manual',
+    imagenUrl: map['imagen_url'] as String?,
+    metaId: map['meta_id'] as String?,
+    createdAt: map['created_at'] != null
+        ? DateTime.parse(map['created_at'] as String)
+        : null,
+  );
 
   Transaction copyWith({
     String? id,
@@ -70,18 +70,17 @@ class Transaction {
     String? fuente,
     String? imagenUrl,
     String? metaId,
-  }) =>
-      Transaction(
-        id: id ?? this.id,
-        userId: userId ?? this.userId,
-        monto: monto ?? this.monto,
-        tipo: tipo ?? this.tipo,
-        categoria: categoria ?? this.categoria,
-        carteraId: carteraId ?? this.carteraId,
-        descripcion: descripcion ?? this.descripcion,
-        fecha: fecha ?? this.fecha,
-        fuente: fuente ?? this.fuente,
-        imagenUrl: imagenUrl ?? this.imagenUrl,
-        metaId: metaId ?? this.metaId,
-      );
+  }) => Transaction(
+    id: id ?? this.id,
+    userId: userId ?? this.userId,
+    monto: monto ?? this.monto,
+    tipo: tipo ?? this.tipo,
+    categoria: categoria ?? this.categoria,
+    carteraId: carteraId ?? this.carteraId,
+    descripcion: descripcion ?? this.descripcion,
+    fecha: fecha ?? this.fecha,
+    fuente: fuente ?? this.fuente,
+    imagenUrl: imagenUrl ?? this.imagenUrl,
+    metaId: metaId ?? this.metaId,
+  );
 }

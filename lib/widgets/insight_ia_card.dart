@@ -54,20 +54,18 @@ class InsightIaCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final backgroundColor = isRepose 
-        ? const Color(0xFFFAFAFA) 
+    final backgroundColor = isRepose
+        ? const Color(0xFFFAFAFA)
         : const Color(0xFFF0F5FF);
-    final borderColor = isRepose 
-        ? const Color(0xFFE5E5EA) 
+    final borderColor = isRepose
+        ? const Color(0xFFE5E5EA)
         : const Color(0xFFD6E4FF);
-    final iconBgColor = isRepose 
-        ? const Color(0xFFF2F2F7) 
+    final iconBgColor = isRepose
+        ? const Color(0xFFF2F2F7)
         : const Color(0xFF2563EB);
-    final iconColor = isRepose 
-        ? const Color(0xFF8E8E93) 
-        : Colors.white;
-    final actionColor = isRepose 
-        ? const Color(0xFF8E8E93) 
+    final iconColor = isRepose ? const Color(0xFF8E8E93) : Colors.white;
+    final actionColor = isRepose
+        ? const Color(0xFF8E8E93)
         : const Color(0xFF2563EB);
 
     return GestureDetector(
@@ -78,7 +76,7 @@ class InsightIaCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(16.0),
         decoration: BoxDecoration(
-          color: backgroundColor, 
+          color: backgroundColor,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(color: borderColor, width: 1),
         ),
@@ -95,9 +93,9 @@ class InsightIaCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Icon(
-                    _getIconData(iconName), 
-                    color: iconColor, 
-                    size: 20
+                    _getIconData(iconName),
+                    color: iconColor,
+                    size: 20,
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -107,7 +105,7 @@ class InsightIaCard extends StatelessWidget {
                     children: [
                       Padding(
                         padding: EdgeInsets.only(
-                          right: onDismiss != null ? 24.0 : 0.0
+                          right: onDismiss != null ? 24.0 : 0.0,
                         ),
                         child: Text(
                           title,
@@ -141,9 +139,9 @@ class InsightIaCard extends StatelessWidget {
                           ),
                           const SizedBox(width: 4),
                           Icon(
-                            Icons.arrow_forward_ios, 
-                            size: 10, 
-                            color: actionColor
+                            Icons.arrow_forward_ios,
+                            size: 10,
+                            color: actionColor,
                           ),
                         ],
                       ),
@@ -202,9 +200,10 @@ class _ShimmerInsightCardState extends State<ShimmerInsightCard>
       vsync: this,
       duration: const Duration(milliseconds: 1500),
     )..repeat(reverse: true);
-    _animation = Tween<double>(begin: 0.4, end: 1.0).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
-    );
+    _animation = Tween<double>(
+      begin: 0.4,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
   }
 
   @override

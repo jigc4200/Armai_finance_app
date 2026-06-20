@@ -80,9 +80,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   Future<void> _sendMagicLink() async {
     if (_emailController.text.trim().isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Ingresa tu email primero')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Ingresa tu email primero')));
       return;
     }
 
@@ -100,9 +100,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: ${e.toString()}')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Error: ${e.toString()}')));
       }
     } finally {
       if (mounted) setState(() => _isLoading = false);
@@ -127,7 +127,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               border: Border.all(color: const Color(0xFFE5E5EA), width: 1),
             ),
             child: IconButton(
-              icon: const Icon(Icons.chevron_left, color: Color(0xFF1C1C1E), size: 20),
+              icon: const Icon(
+                Icons.chevron_left,
+                color: Color(0xFF1C1C1E),
+                size: 20,
+              ),
               padding: EdgeInsets.zero,
               onPressed: () {
                 HapticFeedback.lightImpact();
@@ -190,11 +194,16 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       onTap: () {
                         HapticFeedback.selectionClick();
                         setState(() {
-                          _accountType = _accountType == 'Personal' ? 'Negocio' : 'Personal';
+                          _accountType = _accountType == 'Personal'
+                              ? 'Negocio'
+                              : 'Personal';
                         });
                       },
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 6,
+                        ),
                         decoration: BoxDecoration(
                           color: const Color(0xFFEEF2F6),
                           borderRadius: BorderRadius.circular(16),
@@ -268,7 +277,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     hintText: '••••••••',
                     suffixIcon: IconButton(
                       icon: Icon(
-                        _obscurePassword ? Icons.visibility_off : Icons.visibility,
+                        _obscurePassword
+                            ? Icons.visibility_off
+                            : Icons.visibility,
                         color: const Color(0xFF8E8E93),
                       ),
                       onPressed: () {

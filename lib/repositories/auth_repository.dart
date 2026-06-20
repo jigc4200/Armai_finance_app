@@ -11,11 +11,7 @@ class AuthRepository {
   Stream<AuthState> get authStateChanges => _client.auth.onAuthStateChange;
 
   Future<Map<String, dynamic>> getUserProfile(String userId) async {
-    return await _client
-        .from('users')
-        .select()
-        .eq('id', userId)
-        .single();
+    return await _client.from('users').select().eq('id', userId).single();
   }
 
   Future<void> signInWithMagicLink(String email) async {
@@ -23,17 +19,11 @@ class AuthRepository {
   }
 
   Future<AuthResponse> signInWithEmail(String email, String password) async {
-    return _client.auth.signInWithPassword(
-      email: email,
-      password: password,
-    );
+    return _client.auth.signInWithPassword(email: email, password: password);
   }
 
   Future<AuthResponse> signUp(String email, String password) async {
-    return _client.auth.signUp(
-      email: email,
-      password: password,
-    );
+    return _client.auth.signUp(email: email, password: password);
   }
 
   Future<void> signOut() async {

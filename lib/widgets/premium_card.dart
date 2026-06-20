@@ -19,7 +19,9 @@ class PremiumCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(24), // Curvas de Apple
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.04), // Sombra 96% transparente
+            color: Colors.black.withValues(
+              alpha: 0.04,
+            ), // Sombra 96% transparente
             blurRadius: 24, // Súper difuminada
             offset: const Offset(0, 8), // Cae hacia abajo suavemente
           ),

@@ -8,12 +8,7 @@ class OcrResult {
   final DateTime? fecha;
   final String? comercio;
 
-  OcrResult({
-    required this.rawText,
-    this.monto,
-    this.fecha,
-    this.comercio,
-  });
+  OcrResult({required this.rawText, this.monto, this.fecha, this.comercio});
 }
 
 class OcrService {
@@ -51,41 +46,34 @@ class OcrService {
         }
       }
 
-      final montoMatch = RegExp(r'(?:total|importe|monto|suma|\$)\s*:?\s*(\d+[.,]\d{2})')
-          .firstMatch(trimmed);
+      final montoMatch = RegExp(
+        r'(?:total|importe|monto|suma|\$)\s*:?\s*(\d+[.,]\d{2})',
+      ).firstMatch(trimmed);
       if (montoMatch != null) {
         monto = double.tryParse(montoMatch.group(1)!.replaceAll(',', '.'));
       }
 
       if (monto == null) {
-        final amountMatch =
-            RegExp(r'(\d+[.,]\d{2})\s*$').firstMatch(trimmed);
+        final amountMatch = RegExp(r'(\d+[.,]\d{2})\s*$').firstMatch(trimmed);
         if (amountMatch != null) {
           monto = double.tryParse(amountMatch.group(1)!.replaceAll(',', '.'));
         }
       }
 
-      final dateMatch = RegExp(r'(\d{1,2})[/-](\d{1,2})[/-](\d{2,4})')
-          .firstMatch(trimmed);
+      final dateMatch = RegExp(
+        r'(\d{1,2})[/-](\d{1,2})[/-](\d{2,4})',
+      ).firstMatch(trimmed);
       if (dateMatch != null) {
         try {
           final day = int.parse(dateMatch.group(1)!);
           final month = int.parse(dateMatch.group(2)!);
           final year = int.parse(dateMatch.group(3)!);
-          fecha = DateTime(
-            year < 100 ? 2000 + year : year,
-            month,
-            day,
-          );
+          fecha = DateTime(year < 100 ? 2000 + year : year, month, day);
         } catch (_) {}
       }
     }
 
-    return {
-      'monto': monto,
-      'fecha': fecha,
-      'comercio': comercio,
-    };
+    return {'monto': monto, 'fecha': fecha, 'comercio': comercio};
   }
 
   void dispose() {

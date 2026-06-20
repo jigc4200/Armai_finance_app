@@ -12,10 +12,7 @@ class AgentResponse {
     final rawInsight = json['insight'];
     AiInsight? insightObj;
     if (rawInsight != null && rawInsight is Map<String, dynamic>) {
-      insightObj = AiInsight.fromMap({
-        ...rawInsight,
-        'user_id': userId,
-      });
+      insightObj = AiInsight.fromMap({...rawInsight, 'user_id': userId});
     }
     return AgentResponse(
       respuesta: json['respuesta'] as String? ?? 'No response received',
@@ -34,18 +31,12 @@ class AgentService {
     String modo = 'conversacional',
     Map<String, dynamic>? simulacion,
   }) async {
-    final body = <String, dynamic>{
-      'mensaje': mensaje,
-      'modo': modo,
-    };
+    final body = <String, dynamic>{'mensaje': mensaje, 'modo': modo};
     if (simulacion != null) {
       body['simulacion'] = simulacion;
     }
 
-    final response = await _client.functions.invoke(
-      'agente',
-      body: body,
-    );
+    final response = await _client.functions.invoke('agente', body: body);
 
     final userId = _client.auth.currentUser?.id ?? '';
     return AgentResponse.fromJson(

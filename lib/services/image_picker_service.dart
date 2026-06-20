@@ -8,8 +8,13 @@ class ImagePickerService {
   Future<File?> _compressFile(File file) async {
     try {
       final filePath = file.absolute.path;
-      final lastIndex = filePath.lastIndexOf(RegExp(r'\.png|\.jpg|\.jpeg|\.PNG|\.JPG|\.JPEG'));
-      final splitted = filePath.substring(0, (lastIndex >= 0) ? lastIndex : filePath.length);
+      final lastIndex = filePath.lastIndexOf(
+        RegExp(r'\.png|\.jpg|\.jpeg|\.PNG|\.JPG|\.JPEG'),
+      );
+      final splitted = filePath.substring(
+        0,
+        (lastIndex >= 0) ? lastIndex : filePath.length,
+      );
       final outPath = "${splitted}_compressed.webp";
 
       final result = await FlutterImageCompress.compressAndGetFile(

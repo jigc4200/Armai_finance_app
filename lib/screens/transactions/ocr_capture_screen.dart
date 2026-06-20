@@ -44,10 +44,7 @@ class _OcrCaptureScreenState extends State<OcrCaptureScreen> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (_) => OcrReviewScreen(
-            imageFile: file,
-            ocrResult: result,
-          ),
+          builder: (_) => OcrReviewScreen(imageFile: file, ocrResult: result),
         ),
       ).then((_) {
         setState(() => _isProcessing = false);
@@ -55,7 +52,7 @@ class _OcrCaptureScreenState extends State<OcrCaptureScreen> {
     } catch (e) {
       if (!mounted) return;
       setState(() => _isProcessing = false);
-      
+
       // Auto-destrucción del archivo temporal del OCR en caso de error
       try {
         if (await file.exists()) {
@@ -64,9 +61,9 @@ class _OcrCaptureScreenState extends State<OcrCaptureScreen> {
       } catch (_) {}
 
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error al procesar: $e')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Error al procesar: $e')));
     }
   }
 
@@ -99,7 +96,7 @@ class _OcrCaptureScreenState extends State<OcrCaptureScreen> {
               ),
             ),
             const SizedBox(height: 48),
-             if (_isProcessing && _imageFile != null)
+            if (_isProcessing && _imageFile != null)
               Column(
                 children: [
                   Stack(
@@ -126,7 +123,10 @@ class _OcrCaptureScreenState extends State<OcrCaptureScreen> {
                         width: 200,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(16),
-                          child: const LaserScannerWidget(height: 250, width: 200),
+                          child: const LaserScannerWidget(
+                            height: 250,
+                            width: 200,
+                          ),
                         ),
                       ),
                     ],
